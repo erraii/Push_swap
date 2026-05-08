@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 09:30:20 by bkusi-fr          #+#    #+#             */
-/*   Updated: 2026/05/08 05:02:01 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 05:50:34 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,52 @@ int	find_node(t_dlist *lst, int tg)
 	return (-1);
 }
 
-void	perform_rotations(t_dlist *st, int cnt, int dxn, char stack_name, t_output *out)
+// void	perform_rotations(t_dlist *st, int cnt, int dxn, 
+//			char stack_name, t_output *out)
+// {
+// 	while (cnt > 0)
+// 	{
+// 		if (dxn == 1)
+// 		{
+// 			rx(st);
+// 			if (stack_name == 'a')
+// 				emit_op(out, "ra");
+// 			else
+// 				emit_op(out, "rb");
+// 		}
+// 		else
+// 		{
+// 			rrx(st);
+// 			if (stack_name == 'a')
+// 				emit_op(out, "rra");
+// 			else
+// 				emit_op(out, "rrb");
+// 		}
+// 		cnt--;
+// 	}
+// }
+
+void	rotate_st(t_dlist *st, int cnt, t_output *out, char stack_name)
 {
-	while (cnt > 0)
+	while (cnt-- > 0)
 	{
-		if (dxn == 1)
-		{
-			rx(st);
-			if (stack_name == 'a')
-				emit_op(out, "ra");
-			else
-				emit_op(out, "rb");
-		}
+		rx(st);
+		if (stack_name == 'a')
+			emit_op(out, "ra");
 		else
-		{
-			rrx(st);
-			if (stack_name == 'a')
-				emit_op(out, "rra");
-			else
-				emit_op(out, "rrb");
-		}
-		cnt--;
+			emit_op(out, "rb");
+	}
+}
+
+void	rev_rotate_st(t_dlist *st, int cnt, t_output *out, char stack_name)
+{
+	while (cnt-- > 0)
+	{
+		rrx(st);
+		if (stack_name == 'a')
+			emit_op(out, "rra");
+		else
+			emit_op(out, "rrb");
 	}
 }
 
@@ -71,17 +96,17 @@ void	selection_sort(t_dlist *st_a, t_dlist *st_b, int mx, t_output *out)
 		pos = find_node(st_a, i);
 		if (pos < 0)
 			return ;
-		if (pos > (mx - i - pos))
-			perform_rotations(st_a, mx - i - pos, -1, 'a', out);
+		if (pos >= (mx - i - pos))
+			rev_rotate_st(st_a, mx - i - pos, out, 'a');
 		else if (pos < (mx - i - pos))
-			perform_rotations(st_a, pos, 1, 'a', out);
+			rotate_st(st_a, pos, out, 'a');
 		px(st_a, st_b);
-		ft_putstr_fd("pb\n", 1);
+		emit_op(out, "pb");
 	}
 	while (1)
 	{
 		if (px(st_b, st_a) == 0)
 			break ;
-		ft_putstr_fd("pa\n", 1);
+		emit_op(out, "pa");
 	}
 }

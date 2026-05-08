@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 16:56:21 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/08 03:52:24 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 05:48:00 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static void	sort_chunks(t_dlist *a, t_dlist *b, int mx, t_output *out)
 	{
 		pos = find_node(b, mx);
 		if (pos < len - pos)
-			perform_rotations(b, pos, 1, 'b', out);
+			rotate_st(b, pos, out, 'b');
 		else
-			perform_rotations(b, len - pos, -1, 'b', out);
+			rev_rotate_st(b, len - pos, out, 'b');
 		px(b, a);
 		emit_op(out, "pa");
 		len--;

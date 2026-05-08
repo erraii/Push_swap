@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 16:15:25 by bkusi-fr          #+#    #+#             */
-/*   Updated: 2026/05/08 03:44:09 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 07:08:35 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,44 @@ static int	get_bit_len(int num)
 	return (i + 1);
 }
 
-static void	handle_radix_sort_cycle(t_dlist *st_a, t_dlist *st_b, int len, int i, t_output *out)
+static void	handle_radix_sort_cycle(t_dlist *st_a, t_dlist *st_b,
+	t_radix_cycle cycle, t_output *out)
 {
-	while (len--)
+	int	i;
+
+	i = 0;
+	while (i < cycle.len)
 	{
-		if (!st_a || !st_a->head)
-			break ;
-		if (st_a->head->data & (1 << i))
-		{
-			rx(st_a);
-			emit_op(out, "ra");
-		}
-		else
+		if (((st_a->head->data >> cycle.bit) & 1) == 0)
 		{
 			px(st_a, st_b);
 			emit_op(out, "pb");
 		}
+		else
+		{
+			rx(st_a);
+			emit_op(out, "ra");
+		}
+		i++;
 	}
-	while (1)
+	while (st_b->head)
 	{
-		if (px(st_b, st_a) == 0)
-			break ;
+		px(st_b, st_a);
 		emit_op(out, "pa");
 	}
 }
 
 void	radix_sort(t_dlist *st_a, t_dlist *st_b, int mx, t_output *out)
 {
-	int	max_bit_len;
-	int	i;
+	t_radix_cycle	cycle;
+	int				max_bit_len;
 
-	i = -1;
+	cycle.len = mx;
+	cycle.bit = 0;
 	max_bit_len = get_bit_len(mx - 1);
-	while (++i < max_bit_len)
+	while (cycle.bit < max_bit_len)
 	{
-		handle_radix_sort_cycle(st_a, st_b, mx, i, out);
+		handle_radix_sort_cycle(st_a, st_b, cycle, out);
+		cycle.bit++;
 	}
 }

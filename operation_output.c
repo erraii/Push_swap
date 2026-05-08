@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operation_output.c                                 :+:      :+:    :+:   */
+/*   operation_output_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 03:32:09 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/08 04:10:00 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 05:57:35 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_utils.h"
 #include "push_swap.h"
-
-void	init_output(t_output *out)
-{
-	int	i;
-
-	out->pending[0] = '\0';
-	out->total_ops = 0;
-	i = 0;
-	while (i < 11)
-	{
-		out->op_count[i] = 0;
-		i++;
-	}
-}
 
 static int	op_index(char *op)
 {
@@ -52,17 +38,6 @@ static int	op_index(char *op)
 	return (10);
 }
 
-static void	write_counted(t_output *out, char *op)
-{
-	int	idx;
-
-	idx = op_index(op);
-	out->op_count[idx] += 1;
-	out->total_ops += 1;
-	ft_putstr_fd(op, 1);
-	ft_putstr_fd("\n", 1);
-}
-
 static int	is_combinable(char *first, char *second, char *combined)
 {
 	if (((ft_strncmp(first, "ra", 3) == 0)
@@ -81,6 +56,17 @@ static int	is_combinable(char *first, char *second, char *combined)
 			&& (ft_strncmp(second, "sa", 3) == 0)))
 		return (ft_strlcpy(combined, "ss", 3), 1);
 	return (0);
+}
+
+static void	write_counted(t_output *out, char *op)
+{
+	int	idx;
+
+	idx = op_index(op);
+	out->op_count[idx] += 1;
+	out->total_ops += 1;
+	ft_putstr_fd(op, 1);
+	ft_putstr_fd("\n", 1);
 }
 
 void	flush_op(t_output *out)

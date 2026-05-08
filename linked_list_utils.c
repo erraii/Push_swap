@@ -6,18 +6,12 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 09:25:06 by bkusi-fr          #+#    #+#             */
-/*   Updated: 2026/05/07 23:42:43 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 06:03:56 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_utils.h"
 #include "push_swap.h"
-
-void	init_dlist(t_dlist *lst)
-{
-	lst->head = 0;
-	lst->tail = 0;
-}
 
 t_node	*create_node(int num)
 {

@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 09:20:09 by bkusi-fr          #+#    #+#             */
-/*   Updated: 2026/05/08 04:49:24 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/08 06:19:04 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	print_dlist(t_dlist *lst)
-{
-	t_node	*trav;
+// void	print_dlist(t_dlist *lst)
+// {
+// 	t_node	*trav;
 
-	if (!lst || !lst->head)
-		return ;
-	trav = lst->head;
-	do
-	{
-		if (trav)
-			printf("%d ", trav->data);
-		trav = trav->next;
-	} while (trav && trav != lst->head);
-	printf("\n");
+// 	if (!lst || !lst->head)
+// 		return ;
+// 	trav = lst->head;
+// 	do
+// 	{
+// 		if (trav)
+// 			printf("%d ", trav->data);
+// 		trav = trav->next;
+// 	} while (trav && trav != lst->head);
+// 	printf("\n");
+// }
+
+static void	init_dlist(t_dlist *lst)
+{
+	lst->head = 0;
+	lst->tail = 0;
 }
 
-void	init_all_vars(t_state *input, t_dlist *sa, t_dlist *sb)
+static void	init_all_vars(t_state *input, t_dlist *sa, t_dlist *sb)
 {
 	init_state(input);
 	init_dlist(sa);
@@ -56,23 +62,57 @@ static void	set_forced_bench(t_state *state, t_bench *bench)
 	}
 }
 
-static void	run_adaptive_sort(t_dlist *stk_a, t_dlist *stk_b, int len, t_output *out, t_bench *bench)
+static int	stack_len(t_dlist *stk)
 {
+	t_node	*cur;
+	int		len;
+
+	if (!stk || !stk->head)
+		return (0);
+	len = 1;
+	cur = stk->head->next;
+	while (cur != stk->head)
+	{
+		len++;
+		cur = cur->next;
+	}
+	return (len);
+}
+
+static void	run_adap_sort(t_dlist *a, t_dlist *b, t_output *out, t_bench *bench)
+{
+	int	len;
+
+	len = stack_len(a);
 	bench->strategy = "Adaptive";
 	if (bench->disorder < 0.2)
 	{
 		bench->complexity = "O(n^2)";
-		selection_sort(stk_a, stk_b, len, out);
+		selection_sort(a, b, len, out);
 	}
 	else if (bench->disorder < 0.5)
 	{
 		bench->complexity = "O(n√n)";
-		butterfly_sort(stk_a, stk_b, len, out);
+		butterfly_sort(a, b, len, out);
 	}
 	else
 	{
 		bench->complexity = "O(n log n)";
-		radix_sort(stk_a, stk_b, len, out);
+		radix_sort(a, b, len, out);
+	}
+}
+
+static void	init_output(t_output *out)
+{
+	int	i;
+
+	out->pending[0] = '\0';
+	out->total_ops = 0;
+	i = 0;
+	while (i < 11)
+	{
+		out->op_count[i] = 0;
+		i++;
 	}
 }
 
@@ -95,7 +135,7 @@ static void	run_selected_sort(t_state *state, t_dlist *stk_a, t_dlist *stk_b)
 		else if (ft_strncmp(state->mode, "complex", 8) == 0)
 			radix_sort(stk_a, stk_b, state->len, &out);
 		else
-			run_adaptive_sort(stk_a, stk_b, state->len, &out, &bench);
+			run_adap_sort(stk_a, stk_b, &out, &bench);
 	}
 	flush_op(&out);
 	if (state->is_benchmark_mode)
@@ -126,6 +166,6 @@ int	main(int ac, char **av)
 	populate_stack(&stk_a);
 	//butterfly_sort(&stk_a, &stk_b, user_input.len);
 	run_selected_sort(&user_input, &stk_a, &stk_b);
-	print_dlist(&stk_a);
+	//print_dlist(&stk_a);
 	return (0);
 }

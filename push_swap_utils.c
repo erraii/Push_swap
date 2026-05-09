@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils_2.c                                :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/08 07:53:14 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/08 08:00:34 by ecakiray         ###   ########.fr       */
+/*   Created: 2026/05/02 22:22:56 by bkusi-fr          #+#    #+#             */
+/*   Updated: 2026/05/08 07:11:45 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,33 @@ void	create_stack_from_arr(t_dlist *stk, int *arr, int len)
 			return ;
 		dlist_addfront(stk, node);
 	}
+}
+
+double	compute_disorder_dlist(t_dlist *st)
+{
+	double	mistakes;
+	int		total_pairs;
+	t_node	*i;
+	t_node	*j;
+
+	if (stack_len(st) < 2)
+		return (0);
+	mistakes = 0;
+	total_pairs = 0;
+	i = st->head;
+	while (1)
+	{
+		j = i->next;
+		while (j && j != st->head)
+		{
+			total_pairs++;
+			if (i->data > j->data)
+				mistakes++;
+			j = j->next;
+		}
+		i = i->next;
+		if (!i || i == st->head)
+			break ;
+	}
+	return (mistakes / total_pairs);
 }

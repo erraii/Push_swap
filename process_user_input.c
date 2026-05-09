@@ -22,11 +22,6 @@ void	init_state(t_state *state)
 	ft_strlcpy(state->mode, "adaptive", 10);
 }
 
-// static int	is_space(char c)
-// {
-// 	return (c == ' ' || (9 <= c && c <= 13));
-// }
-
 static int	parse_int_token(char *arg, int start, int end, int *value)
 {
 	int			i;
@@ -86,44 +81,6 @@ static int	process_arg(t_state *state, t_dlist *stk_a, char *arg)
 	}
 	return (count > 0);
 }
-// static int	valid_num(const char *num)
-// {
-// 	int	i;
-// 	int	digits;
-
-// 	i = 0;
-// 	digits = 0;
-// 	while (num[i] == ' ' || (9 <= num[i] && num[i] <= 13))
-// 		i++;
-// 	if (num[i] == '+' || num[i] == '-')
-// 		i++;
-// 	while (num[i])
-// 	{
-// 		if (!ft_isdigit(num[i]))
-// 			return (0);
-// 		digits = 1;
-// 		i++;
-// 	}
-// 	return (digits);
-// }
-
-// static int	add_arg_to_stack(t_state *state, t_dlist *stk_a, char *arg)
-// {
-// 	int		value;
-// 	t_node	*node;
-
-// 	if (!valid_num(arg))
-// 		return (0);
-// 	value = ft_atoi(arg);
-// 	if (list_has_value(stk_a, value))
-// 		return (0);
-// 	node = create_node(value);
-// 	if (!node)
-// 		return (0);
-// 	dlist_addback(stk_a, node);
-// 	state->len += 1;
-// 	return (1);
-// }
 
 int	process_input(t_state *state, t_dlist *stk_a, char **av, int ac)
 {

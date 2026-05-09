@@ -55,8 +55,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if ((*(s1 + str_len) == *(s2 + str_len)) || (n == 0) || str_len == n)
 		return (0);
 	else
-		return ((unsigned char)*(s1 + str_len)
-			- (unsigned char)*(s2 + str_len));
+		return ((unsigned char)*(s1 + str_len) - (unsigned char)*(s2
+				+ str_len));
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)

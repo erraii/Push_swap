@@ -40,19 +40,16 @@ static int	op_index(char *op)
 
 static int	is_combinable(char *first, char *second, char *combined)
 {
-	if (((ft_strncmp(first, "ra", 3) == 0)
-			&& (ft_strncmp(second, "rb", 3) == 0))
-		|| ((ft_strncmp(first, "rb", 3) == 0)
+	if (((ft_strncmp(first, "ra", 3) == 0) && (ft_strncmp(second, "rb",
+					3) == 0)) || ((ft_strncmp(first, "rb", 3) == 0)
 			&& (ft_strncmp(second, "ra", 3) == 0)))
 		return (ft_strlcpy(combined, "rr", 4), 1);
-	if (((ft_strncmp(first, "rra", 4) == 0)
-			&& (ft_strncmp(second, "rrb", 4) == 0))
-		|| ((ft_strncmp(first, "rrb", 4) == 0)
+	if (((ft_strncmp(first, "rra", 4) == 0) && (ft_strncmp(second, "rrb",
+					4) == 0)) || ((ft_strncmp(first, "rrb", 4) == 0)
 			&& (ft_strncmp(second, "rra", 4) == 0)))
 		return (ft_strlcpy(combined, "rrr", 4), 1);
-	if (((ft_strncmp(first, "sa", 3) == 0)
-			&& (ft_strncmp(second, "sb", 3) == 0))
-		|| ((ft_strncmp(first, "sb", 3) == 0)
+	if (((ft_strncmp(first, "sa", 3) == 0) && (ft_strncmp(second, "sb",
+					3) == 0)) || ((ft_strncmp(first, "sb", 3) == 0)
 			&& (ft_strncmp(second, "sa", 3) == 0)))
 		return (ft_strlcpy(combined, "ss", 3), 1);
 	return (0);

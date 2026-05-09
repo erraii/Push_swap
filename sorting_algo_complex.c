@@ -24,7 +24,7 @@ static int	get_bit_len(int num)
 }
 
 static void	handle_radix_sort_cycle(t_dlist *st_a, t_dlist *st_b,
-	t_radix_cycle cycle, t_output *out)
+		t_radix_cycle cycle, t_output *out)
 {
 	int	i;
 

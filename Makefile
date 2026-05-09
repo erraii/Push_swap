@@ -15,7 +15,8 @@ SRC = main.c \
 		sorting_algo_complex.c \
 		sorting_algo_medium.c \
 		libft_utils_1.c \
-		libft_utils_2.c
+		libft_utils_2.c \
+		sorting_algo_brute_force.c
 NAME = push_swap
 OBJS = $(SRC:.c=.o)
 $(NAME): all

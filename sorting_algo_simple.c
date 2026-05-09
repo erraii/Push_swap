@@ -36,31 +36,6 @@ int	find_node(t_dlist *lst, int tg)
 	return (-1);
 }
 
-// void	perform_rotations(t_dlist *st, int cnt, int dxn, 
-//			char stack_name, t_output *out)
-// {
-// 	while (cnt > 0)
-// 	{
-// 		if (dxn == 1)
-// 		{
-// 			rx(st);
-// 			if (stack_name == 'a')
-// 				emit_op(out, "ra");
-// 			else
-// 				emit_op(out, "rb");
-// 		}
-// 		else
-// 		{
-// 			rrx(st);
-// 			if (stack_name == 'a')
-// 				emit_op(out, "rra");
-// 			else
-// 				emit_op(out, "rrb");
-// 		}
-// 		cnt--;
-// 	}
-// }
-
 void	rotate_st(t_dlist *st, int cnt, t_output *out, char stack_name)
 {
 	while (cnt-- > 0)

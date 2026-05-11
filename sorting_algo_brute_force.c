@@ -41,7 +41,7 @@ void	brute_force_sort(t_dlist *a, t_dlist *b, int mx, t_output *out)
 
 	if (mx > 5 || !a || !a->head)
 		return ;
-	if (mx == 5)
+	if (mx >= 4)
 	{
 		selection_sort(a, b, mx, out);
 		return ;

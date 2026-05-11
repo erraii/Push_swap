@@ -75,6 +75,8 @@ void	selection_sort(t_dlist *st_a, t_dlist *st_b, int mx, t_output *out)
 			rev_rotate_st(st_a, mx - i - pos, out, 'a');
 		else if (pos < (mx - i - pos))
 			rotate_st(st_a, pos, out, 'a');
+		if (compute_disorder_dlist(st_a) <= 0.00006)
+			break ;
 		px(st_a, st_b);
 		emit_op(out, "pb");
 	}

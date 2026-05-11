@@ -37,7 +37,7 @@ static void	run_adap_sort(t_dlist *a, t_dlist *b, t_output *out, t_bench *bench)
 
 	len = stack_len(a);
 	bench->strategy = "Adaptive";
-	if (len == 3 || len == 5)
+	if (len <= 5)
 		brute_force_sort(a, b, len, out);
 	else if (bench->disorder < 0.2)
 	{
